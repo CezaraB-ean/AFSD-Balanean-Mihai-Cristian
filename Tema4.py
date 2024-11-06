@@ -11,7 +11,7 @@ litere_incercate = []
 for i in progres:
     print(i, end="")
 print("")
-
+cuvant2 = cuvant_de_ghicit
 print("Doresti sa iti incerci norocul? \nda SAU nu")
 raspuns = input()
 if raspuns == "da":
@@ -58,4 +58,4 @@ else:
     if incercari_ramase > 0:
         print("Bravo! Ai ghicit cuvantul!")
     else:
-        print("Ai pierdut! HaHaHa!")
+        print(f"Ai pierdut! HaHaHa! Cuvantul era {cuvant2}")
