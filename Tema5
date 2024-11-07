@@ -1,0 +1,56 @@
+def cauta_document(lista_documente, document):
+    k = 0
+    numar_iteratii = 0
+    for i in range(0,len(lista_documente)):
+        numar_iteratii += 1
+        if lista_documente[i] == document:
+            k = 1
+            break
+    if k:
+        print(f"Documentul cu numarul de referinta {document} a fost gasit pe pozitia {i} dupa {numar_iteratii} documente verificate.")
+    else:
+        print(f"Documentul cu numărul de referință {document} nu a fost găsit în dosar. Total documente verificate: {numar_iteratii}.")
+    return 0
+
+import math
+def cauta_container(containere, numar_identificare):
+    n = len(containere)
+    salt = int(math.sqrt(n))
+    numar_iteratii = 0
+    l = 0
+    m = 0
+    stanga = 0
+    pozitie = 0
+    dreapta = 0
+    for i in range(0,n,salt):
+        numar_iteratii += 1
+        if containere[i] < numar_identificare:
+            stanga = i
+        elif containere[i] == numar_identificare:
+            l = 1
+            pozitie = i
+            break
+        else:
+            break
+    if l:
+        m = 1
+        print(f"Containerul cu numărul {numar_identificare} a fost găsit pe poziția {pozitie} după {numar_iteratii} pași.")
+    else:
+        if stanga == n - 1:
+            if containere[stanga] == numar_identificare:
+                    l = 1
+                    pozitie = i
+                    numar_iteratii += 1
+        else:
+            for i in range(stanga , dreapta):
+                numar_iteratii += 1
+                if containere[i] == numar_identificare:
+                    l = 1
+                    pozitie = i
+                    break
+    if l == 1 and m == 0:
+        print(f"Containerul cu numărul {numar_identificare} a fost găsit pe poziția {pozitie} după {numar_iteratii} pași.")
+    elif l == 0:
+        print(f"Containerul cu numărul {numar_identificare} nu a fost găsit în sistem. Total pași efectuați: {numar_iteratii}.")
+
+cauta_container([1050, 1075, 1100, 1125, 1150, 1175, 1200], 1300)
