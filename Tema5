@@ -54,3 +54,51 @@ def cauta_container(containere, numar_identificare):
         print(f"Containerul cu numărul {numar_identificare} nu a fost găsit în sistem. Total pași efectuați: {numar_iteratii}.")
 
 cauta_container([1050, 1075, 1100, 1125, 1150, 1175, 1200], 1300)
+
+numar_pasi = 0
+gasit = 0
+pozitie = 0
+
+def cautare_exponentiala(pacienti,id_pacient):
+    global numar_pasi
+    a = len(pacienti)
+    if lista[0] == id_pacient:
+        return 0
+    i = 1
+    while i < a and pacienti[i] < id_pacient:
+        i *= 2
+        numar_pasi += 1
+
+    return cautare_binara(pacienti, i // 2, min(i , n-1), id_pacient)
+
+def cautare_binara(lista, stanga, dreapta, id_pacient):
+    global numar_pasi
+    global gasit
+    global pozitie
+    while gasit == 0 and stanga!=dreapta:
+        numar_pasi += 1
+        mijloc = (stanga + dreapta) // 2
+        print( stanga )
+        print( dreapta )
+        if lista[mijloc] == id_pacient:
+            gasit = 1
+            pozitie = mijloc
+        else:
+            if lista[mijloc] < id_pacient:
+                stanga = mijloc + 1
+            elif lista[mijloc] > id_pacient:
+                dreapta = mijloc - 1
+    if gasit:
+        return 1
+    else:
+        return 0
+
+def cauta_pacient(pacienti, id_pacient):
+    global gasit
+    global pozitie
+    if cautare_binara(pacienti, 0, len(pacienti), id_pacient):
+        print(f"Dosarul pacientului cu numărul de identificare {id_pacient} a fost găsit la poziția {pozitie} după {numar_pasi} pași de căutare.")
+    else:
+        print(f"Dosarul pacientului cu numărul de identificare {id_pacient} nu a fost găsit. Total pași efectuați: {numar_pasi}.")
+
+cauta_pacient([1000, 1010, 1020, 1030, 1040, 1050, 1060, 1070, 1080], 1100)
