@@ -1,0 +1,14 @@
+import tkinter as tk
+root = tk.Tk()
+root.geometry("500x500")
+
+main_frame = tk.Frame(root, bg = 'white')
+main_frame.pack_propagate(False)
+main_frame.pack(fill = 'both', expand = False)
+
+bars_frame = tk.Frame(main_frame, width = 400, height = 400, bg = 'black')
+bars_frame.pack_propagate(False)
+bars_frame.pack(side = 'left', padx = 10)
+tk.Button(main_frame, text="Quit", command=root.destroy)
+
+root.mainloop()
