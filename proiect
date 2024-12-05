@@ -1,14 +1,28 @@
 import tkinter as tk
+from tkinter import ttk
 root = tk.Tk()
-root.geometry("500x500")
+root.geometry("550x400")
 
 main_frame = tk.Frame(root, bg = 'white')
 main_frame.pack_propagate(False)
-main_frame.pack(fill = 'both', expand = False)
+main_frame.pack(fill = 'both', expand = True)
 
 bars_frame = tk.Frame(main_frame, width = 400, height = 400, bg = 'black')
 bars_frame.pack_propagate(False)
-bars_frame.pack(side = 'left', padx = 10)
+bars_frame.pack(side = 'left', padx = 10, pady = 10)
+
+buttons_frame = tk.Frame(main_frame, width = 120, height = 400, bg = 'lightgray')
+buttons_frame.pack_propagate(False)
+buttons_frame.pack(side = 'right', padx = 10, pady = 10)
+
+sorting_options = ttk.Combobox(buttons_frame, width = 110, justify = "center", height = 3, state = "readonly", values = ["Here", "test", "bau"])
+sorting_options.pack_propagate(False)
+sorting_options.pack(side = 'top', pady = 10, padx = 10)
+
+speed_options = ttk.Combobox(buttons_frame, width = 110, justify = "center", height = 3, state = "readonly", values = ["Here", "test", "bau"])
+speed_options.pack_propagate(False)
+speed_options.pack(side = 'top', pady = 10, padx = 10)
+
 tk.Button(main_frame, text="Quit", command=root.destroy)
 
 root.mainloop()
