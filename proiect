@@ -1,7 +1,41 @@
 import tkinter as tk
 from tkinter import ttk
+import random
+
+bar_list = []
+n=100
+lista = []
+for i in range(1,n+1):
+    lista.append(i)
+lista_valori_folosite = []
+def shuffler():
+    while len(lista) > len(lista_valori_folosite):
+        r_nr = random.choice(lista)
+        if lista_valori_folosite.count(r_nr) != 0:
+            return shuffler()
+        else:
+            lista_valori_folosite.append(r_nr)
+        print(lista_valori_folosite)
+
+def shuffle_command():
+    global lista_valori_folosite
+    global bar_list
+    lista_valori_folosite = []
+    if len(bar_list) != 0:
+        for ar in bar_list:
+            ar.destroy()
+        bar_list = []
+    shuffler()
+    for i in lista_valori_folosite:
+        bar = tk.Frame(bars_frame, width=400 // n, height=400 // n * i, bg="brown")
+        bar.pack_propagate(False)
+        bar.pack(side='left', expand=False, anchor='s')
+        bar_list.append(bar)
+
 root = tk.Tk()
 root.geometry("550x430")
+
+root.createcommand("Shuffle", shuffle_command)
 
 main_frame = tk.Frame(root, bg = 'white')
 main_frame.pack_propagate(False)
@@ -18,34 +52,27 @@ buttons_frame.pack(side = 'right', padx = 10, pady = 10)
 sorting_options = ttk.Combobox(buttons_frame, width = 110, justify = "center", height = 3 , state = "readonly", values = ["Bubble sort", "Stupid sort", "Stalin sort"])
 sorting_options.pack_propagate(False)
 sorting_options.pack(side = 'top', pady = 10, padx = 10)
+sorting_options.set("Metode")
 
-speed_options = ttk.Combobox(buttons_frame, width = 110, justify = "center", text = 'select', height = 3, state = "readonly", values = ["Here", "test", "bau"])
+speed_options = ttk.Combobox(buttons_frame, width = 110, justify = "center", height = 3, state = "readonly", values = ["Here", "test", "bau"])
 speed_options.pack_propagate(False)
 speed_options.pack(side = 'top', pady = 10, padx = 10)
+speed_options.set("Viteze")
 
 quit_button = tk.Button(buttons_frame, width = 110, height = 1, text = "Quit", justify = "center", command = root.destroy)
 quit_button.pack_propagate(False)
 quit_button.pack(side = 'bottom', pady = 10, padx = 10)
 
-#def function():
-#    root = tk.Tk()
-#    root.geometry("550x430")
-#
-#    main_frame = tk.Frame(root, bg='white')
-#    main_frame.pack_propagate(False)
-#    main_frame.pack(fill='both', expand=True)
-#root.createcommand("alacablamz", function)
-
-reset_button = tk.Button(buttons_frame, width = 110, height = 1, text = "Unsort", justify = "center", command = "alacablamz")
+reset_button = tk.Button(buttons_frame, width = 110, height = 1, text = "Unsort", justify = "center", command = "Shuffle")
 reset_button.pack_propagate(False)
 reset_button.pack(side = 'bottom', pady = 10, padx = 10)
 
 i = 1
-n = 100
-while i <= n:
-    bar = tk.Frame(bars_frame, width = 400//n, height = 400//n*i, bg = "brown")
+while i<=n:
+    bar = tk.Frame(bars_frame, width=400 // n, height=400 // n * i, bg="brown")
     bar.pack_propagate(False)
-    bar.pack(side = 'left', expand = False, anchor = 's')
+    bar.pack(side='left', expand=False, anchor='s')
+    bar_list.append(bar)
     i += 1
 
 root.mainloop()
