@@ -32,11 +32,37 @@ def shuffle_command():
         bar.pack(side='left', expand=False, anchor='s')
         bar_list.append(bar)
 
+def sortare_bule():
+    global lista_valori_folosite
+    global bar_list
+    ok = 0
+    k = 0
+    while ok == 0:
+        j=0
+        for j in  range(0,len(lista_valori_folosite)-1):
+            if lista_valori_folosite[j] > lista_valori_folosite[j+1]:
+                lista_valori_folosite[j + 1], lista_valori_folosite[j] =  lista_valori_folosite[j], lista_valori_folosite[j+1]
+                if len(bar_list) != 0:
+                    for ar in bar_list:
+                        ar.destroy()
+                    bar_list = []
+                for i in lista_valori_folosite:
+                    bar = tk.Frame(bars_frame, width=400 // n, height=400 // n * i, bg="brown")
+                    bar.pack_propagate(False)
+                    bar.pack(side='left', expand=False, anchor='s')
+                    bar_list.append(bar)
+                j = 0
+            else:
+                k+=1
+        print(k)
+        if k == len(lista_valori_folosite)-1:
+            ok = 1
+
 root = tk.Tk()
 root.geometry("550x430")
 
 root.createcommand("Shuffle", shuffle_command)
-
+root.createcommand("Bubble", sortare_bule)
 main_frame = tk.Frame(root, bg = 'white')
 main_frame.pack_propagate(False)
 main_frame.pack(fill = 'both', expand = True)
@@ -66,6 +92,10 @@ quit_button.pack(side = 'bottom', pady = 10, padx = 10)
 reset_button = tk.Button(buttons_frame, width = 110, height = 1, text = "Unsort", justify = "center", command = "Shuffle")
 reset_button.pack_propagate(False)
 reset_button.pack(side = 'bottom', pady = 10, padx = 10)
+
+sortare_button = tk.Button(buttons_frame, width = 110, height = 1, text = "Sort", justify = "center", command = "Bubble")
+sortare_button.pack_propagate(False)
+sortare_button.pack(side = 'bottom', pady = 10, padx = 10)
 
 i = 1
 while i<=n:
