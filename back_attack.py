@@ -1,6 +1,6 @@
 import hashlib
 import random
-
+import math
 def get_hash(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
@@ -58,29 +58,31 @@ def incercare_aranjamente(baza):
             print(f"Parola gasita: {parola}")
             print(f"Numar apeluri: {contor}")
             return 0
-
-'''
-def combinatii(sir, poz, k, complet):
-    if complet:
-        incercare_aranjamente(baza)
-        complet = 0
-    else:
-        return combinatii(sir + baza[k], poz, k+1, complet)
-    if len(sir) == 6:
-        complet = 1
-        combinatii(sir, poz, k, complet)
-        baza[poz] = "2"
-'''
+i = 0
 def test(string,kontor,n,deplasare):
-    lista_char = switch(n)
-    if kontor == len(lista_char) and n:
-        baza[n] = lista_char[0]
-        return test(string,0,n-1,deplasare)
-    else:
-        baza[n] = switch(n)[kontor]
+    global i
+    if kontor == len(switch(n)) and n:
+        copie_deplasare = deplasare
+        while copie_deplasare>-1:
+            baza[n+copie_deplasare] = switch(n+copie_deplasare)[0]
+            baza[n+copie_deplasare-1] = switch(n+copie_deplasare-1)[1]
+            copie_deplasare = copie_deplasare - 1
         string = baza
-        incercare_aranjamente(string)
+        return test(string,0,n-1,deplasare+1)
+    else:
+        copie_deplasare = deplasare
+        if copie_deplasare:
+            baza[n+copie_deplasare] = switch(n+copie_deplasare)[i]
+            i = i + 1
+            if i == len(switch(n+copie_deplasare)):
+                i = 0
+                copie_deplasare = copie_deplasare - 1
+        else:
+            baza[n] = switch(n)[kontor]
+        string = baza
+        #incercare_aranjamente(string)
+        print(string)
         return test(string,kontor+1,n,deplasare)
 
 lista = generator_aranjamente()
-test('',0,5,0)
+test([],0,5,0)
