@@ -1,86 +1,114 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
-int n;
-void meniu_optiuni()
+#include <string.h>
+char x[200],y[200];
+int adunare_nr(char x[200],char y[200])
 {
-    printf("Alegeti una din problemele la care doriti rezolvarea.\n");
-    printf("Optiunea: \n");
-    printf("1. Se citește de la tastatură un numar natural n şi apoi n numere ȋntregi. Să se afişeze valoarea maximă dintre numerele citite şi frecvenṭa acesteia.\n");
-    printf("2. Se citesc de la tastatură numerele naturale m si n. Să se afiseze cel mai mare divizor comun si cel ma mic multiplu comun ale acestor două numere.\n");
-    printf("3. Se citesc doua numere naturale n si b (b<10) ). Sa se reprezinte numarul n in baza b.\n");
-    printf("4. Sa se afiseze primele n numere din sirul lui Fibbonacci. (f1=0, f2=1)\n");
-    printf("5. Iesire\n");
-}
-void cautare_maxim()
-{
-    printf("Introduceți o valoare urmată de un șir de valori cu lungimea egală cu prima valoare.\n");
-    scanf("%d",&n);
-    int x,frecventa = 0,maxim = -1;
-    for(int i=1;i<=n;i++)
-    {
-        scanf("%d",&x);
-        if(maxim<x)
-            {
-            maxim = x;
-            frecventa = 1;
-            }
-        else if (maxim == x)
-            frecventa++;
-    }
-    printf("%d %d",maxim,frecventa);
-}
-void em_si_en()
-{
-    printf("Introduceți două valori, separate printr-un spațiu.\n");
-    int m,divizor,multiplu;
-    scanf("%d %d",&m,&n);
-    for(int i = min(m,n);i>=1;i--)
-    {
-        if(m%i == 0 && n%i == 0)
+    int a[200]={0},b[200]={0},s[200]={0},i,t=0;
+    char z[200];
+    a[0]=strlen(x);printf("%d\n",a[0]);
+    b[0]=strlen(y);printf("%d\n",b[0]);
+    if((a[0]<b[0])||(a[0]==b[0])&&(strcmp(x,y)<0))
         {
-            divizor = i;
-            break;
+            strcpy(z,x);
+            strcpy(x,y);
+            strcpy(y,z);
+            a[0] = strlen(x);
+            b[0] = strlen(y);
         }
-    }
-    multiplu = m * n / divizor;
-    printf("%d %d",divizor,multiplu);
+    if(a[0]>b[0]) s[0]=a[0];
+    else s[0]=b[0];
+
+    for(i=1;i<=a[0];i++)
+        a[i]=x[a[0]-i] - '0';
+
+    for(i=s[0];i>0;i--)
+        printf("%d ",a[i]);
+    printf("\n");
+
+    for(i=1;i<=b[0];i++)
+        b[i]=y[b[0]-i]-'0';
+
+    for(i=s[0];i>0;i--)
+        printf("%d ",b[i]);
+    printf("\n");
+
+
+    for(i=1;i<=s[0];i++)
+        {
+            s[i]=(a[i]+b[i]+t)%10;
+            t=(a[i]+b[i]+t)/10;
+        }
+
+    if (t) {s[0]++; s[s[0]]=t;}
+    for(i=s[0];i>0;i--)
+        printf("%d ",s[i]);
+    printf("\n");
+    return s;
 }
-void n_in_baza_b()
+int t = 1;
+int scadere_nr(char x[200],char y[200])
 {
-    printf("Introduceți un număr și baza în care îl doriți (baza poate fi maxim 9).\n");
-    int b = 0;
-    long long int numar_nou = 0, p = 1;
-    scanf("%d %d",&n,&b);
-    while(n>=1)
-    {
-        numar_nou = numar_nou + n%b*p;
-        printf("%d\n",numar_nou);
-        n = n / b;
-        p = p * 10;
-    }
-    printf("%d",numar_nou);
+    int a[200]={0},b[200]={0},s[200]={0},i;
+    char z[200];
+    a[0]=strlen(x);printf("%d\n",a[0]);
+    b[0]=strlen(y);printf("%d\n",b[0]);
+    if((a[0]<b[0])||(a[0]==b[0])&&(strcmp(x,y)<0))
+        {
+            strcpy(z,x);
+            strcpy(x,y);
+            strcpy(y,z);
+            a[0] = strlen(x);
+            b[0] = strlen(y);
+        }
+    if(a[0]>b[0]) s[0]=a[0];
+    else s[0]=b[0];
+
+    for(i=1;i<=a[0];i++)
+        a[i]=x[a[0]-i] - '0';
+
+    for(i=s[0];i>0;i--)
+        printf("%d ",a[i]);
+    printf("\n");
+
+    for(i=1;i<=b[0];i++)
+        b[i]=y[b[0]-i]-'0';
+
+    for(i=s[0];i>0;i--)
+        printf("%d ",b[i]);
+    printf("\n");
+
+
+    for(i=s[0];i>=1;i--)
+        {
+            if(a[i] - t>=b[i])
+            {
+                s[i]=a[i]-b[i]-t;
+            }
+            else
+            {
+                s[i]=a[i]+10-b[i]-t;
+            }
+        }
+    int ok = 0;
+    for(i=1;i<=s[0];i++)
+        if(s[i]== 0 && ok == 0)
+            t++;
+        else if(s[i]!=0 && ok ==0)
+            ok = 1;
+    ///if (t) {s[0] -= t; for(i=1;i<=t;i++)}
+    for(i=s[0];i>0;i--)
+        printf("%d ",s[i]);
+    printf("\n");
+    return s;
 }
+
 int main()
 {
-    SetConsoleOutputCP(CP_UTF8);
-    meniu_optiuni();
-    int s;
-    scanf("%d",&s);
-    switch(s)
-    {
-        case(1):
-            cautare_maxim();
-            break;
-        case(2):
-            em_si_en();
-            break;
-        case(3):
-            n_in_baza_b();
-            break;
-        default:
-            printf("Alegeți o opțiune validă!");
-            break;
-    }
+    printf("Primul numar = ");
+    gets(x);
+    printf("Al doilea numar = ");
+    gets(y);
+    scadere_nr(x,y);
     return 0;
 }
