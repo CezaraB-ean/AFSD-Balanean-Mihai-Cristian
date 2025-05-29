@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "title": "\u6d3b\u7740",
+        "author": "Yu Hua"
+    },
+    {
+        "id": 2,
+        "title": "\u56f4\u57ce",
+        "author": "Qian Zhongshu"
+    },
+    {
+        "id": 3,
+        "title": "\u7ea2\u697c\u68a6",
+        "author": "Cao Xueqin"
+    },
+    {
+        "id": 4,
+        "title": "\u72fc\u56fe\u817e",
+        "author": "Jiang Rong"
+    },
+    {
+        "id": 5,
+        "title": "\u767e\u5e74\u5b64\u72ec",
+        "author": "Gabriel Garcia Marquez"
+    }
+]
